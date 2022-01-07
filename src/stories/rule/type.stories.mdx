@@ -1,0 +1,59 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="规约/TypeScript" />
+
+# 类型定义
+
+- 公共类型或 API 接口需要在&#64;types 文件夹内定义 (xxx.d.ts)
+- xxx.d.ts 内需要定义为模块, 规则: declare module "@文件夹名.模块名"
+- @type/api 文件夹内放置 API 接口的定义文件，在其中指定 RequestParams 与 ResponseData 的类型
+- params.d.ts 文件内可以定义一些共享的类型片段，在项目中共享。
+- 组件、方法相关的类型直接定义在自己对应的 .ts 或.tsx 文件内，并且不要使用 declare module。
+
+```ts
+// src/@type/api/xxxxx-api.d.ts
+declare module "@api.Promotion" {
+  type GetPromotionsReqParams = {
+    /** 活动title */
+    ps_title?: string;
+    /** 活动开始时间 */
+    start_time?: number;
+    /** 活动结束时间 */
+    end_time?: number;
+    /** 当前行号 = (当前页号 - 1) * 分页数量 */
+    startColumn?: number;
+    /** 分页数量 */
+    pageSize?: number;
+    /** 20提交，30开始，40结束，50删除 */
+    status?: number;
+    /** 排序规则 */
+    order?: Order;
+    channel: string;
+    type: string;
+  };
+
+  type GetPromotionsResObj = {
+    recordsTotal: number;
+    recordsFiltered: number;
+    data: {
+      ps_id: number;
+      ps_title: string;
+      start_time: number;
+      end_time: number;
+      type: string;
+      status: number;
+      channel: string;
+      in_user: string;
+      in_dtm: number;
+      edit_user: string;
+      edit_dtm: number;
+    }[];
+  };
+}
+
+// src/@type/param/xxx-param.d.ts
+declare module "@param.Login" {
+  export type UserId = number;
+  export type Name = string;
+}
+```
