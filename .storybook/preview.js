@@ -7,7 +7,7 @@ export const parameters = {
         // "Zero",
         // ["NPM Server", "保存逻辑", "GraphQL_TS自动生成", "Welby"],
         "规约",
-        ["开发环境", "命名规则", "TypeScript"],
+        ["开发环境", "React", "命名规则", "导入导出管理", "TypeScript"],
       ],
     },
     showPanel: false,
