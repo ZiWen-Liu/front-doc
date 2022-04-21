@@ -1,0 +1,50 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="规约/复杂数据的修改" />
+
+# 建议使用 Immer 进行复杂数据的修改
+
+[immer 官网](https://immerjs.github.io/immer/)  
+[immer 提高 React 开发效率的神器](https://zhuanlan.zhihu.com/p/146773995)
+
+<font color="red">
+  immer 使用 Proxy创建代理
+  通过懒代理的方式实现高性能数据代理(懒代理--用到的时候才代理)
+</font>
+<br />
+<br />
+
+### 当我们在修改 state 复杂数据时 往往是这么操作的
+
+```ts
+const [person, setPerson] = useState({
+  name: "Niki de Saint Phalle",
+  artwork: {
+    title: "Blue Nana",
+    city: "Hamburg",
+    image: "https://i.imgur.com/Sd1AgUOm.jpg",
+  },
+});
+...
+
+// 修改目标
+person.artwork.city = 'New Delhi';
+...
+
+// Plan A
+const nextArtwork = { ...person.artwork, city: 'New Delhi' };
+const nextPerson = { ...person, artwork: nextArtwork };
+setPerson(nextPerson);
+...
+
+// Plan B
+setPerson({
+  ...person, // Copy other fields
+  artwork: { // but replace the artwork
+    ...person.artwork, // with the same one
+    city: 'New Delhi' // but in New Delhi!
+  }
+});
+```
+
+#### 想象一下后台 api 返回的 state 某个字段再嵌套了数组 代码复杂度呈几何级上升 直接原地爆炸

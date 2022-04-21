@@ -1,0 +1,20 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="规约/React/3.Context" />
+
+# Context 使用注意事项
+
+因为 React 单向数据流的特点 我们不可避免的会在项目中使用 Context 进行跨层级传递  
+一些事项需要特别注意
+
+<br />
+
+### 避免因为使用 Context 造成不必要的 render
+
+借鉴 DDD(领域驱动设计)思想 并且以 Context 中数据变化的频率为基准 细化 Context 粒度  
+1.以业务模块为维度设计 Context  
+2.热数据（频繁更新）一个 Context 冷数据一个 Context
+
+[React 语境下前端 DDD 的思考](https://zhuanlan.zhihu.com/p/421300074)  
+[如何优雅地处理使用 React Context 导致的不必要渲染问题](https://www.zhihu.com/question/450047614)  
+[React Context 中的性能优化](https://cloud.tencent.com/developer/article/1750874)

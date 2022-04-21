@@ -1,0 +1,87 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="规约/React/1.Hook" />
+
+# [Hook 简介](https://zh-hans.reactjs.org/docs/hooks-intro.html)
+
+React 团队为了践行代数效应(Algebraic Effects) 在 16.8 版本提出了 Hooks 这一概念  
+函数式组件 + Hooks 可以较好地实现关注点分离 达到高内聚低耦合的代码效果
+
+[通俗易懂的代数效应](https://overreacted.io/zh-hans/algebraic-effects-for-the-rest-of-us/)  
+[React hooks: not magic, just arrays](https://medium.com/@ryardley/react-hooks-not-magic-just-arrays-cd4f1857236e)  
+[React 技术揭秘 Hooks](https://react.iamkasong.com/hooks/prepare.html#%E4%BB%8Elogo%E8%81%8A%E8%B5%B7)
+
+# [Hook 规则](https://zh-hans.reactjs.org/docs/hooks-rules.html)
+
+<font color="red">
+  无论任何体量的React项目 只要使用了Hooks 请使用官方提供的插件进行规则校验
+  并直面Hooks依赖项
+</font>
+
+[useEffect 完整指南](https://overreacted.io/zh-hans/a-complete-guide-to-useeffect/)
+
+<br />
+<br />
+
+### 只在 React 组件的最顶层(return 之前)以及自定义 Hook 中使用 Hook
+
+### 不要在循环 条件或嵌套函数中调用 Hook
+
+[为什么顺序调用对 React Hooks 很重要](https://overreacted.io/zh-hans/why-do-hooks-rely-on-call-order/)
+
+```ts
+// good
+export const CartPopup: FC<CartPopupProps> = memo(
+  ({ rtgId, dealId, mode, specialIsDisabled, activityTopicInfo, hiddenPopup }) => {
+    const { ayncCart, cartWithInfo, gifts } = useRtgCart();
+    const [selectedItemKey, setSelectedItemKey] = useState<string | null>(null);
+    const [detailVisible, setDetailVisible] = useState(false);
+    const [detailItemData, setDetailItemData] = useState<RestaurentMenuProps>({});
+    ...
+
+    return (
+      <>
+      XXX
+      </>
+    );
+  }
+)
+
+
+// bad
+  [].forEach(() => {
+    useAddCartSource(Constants.DETAIL_SOURCE);
+  });
+...
+  if (true) {
+    useAddCartSource(Constants.DETAIL_SOURCE);
+  }
+...
+  const addCartFun = useDebounce((updateProduct, newOptionProduct, cb?) => {
+    const updateProductParam = {
+      ...
+      // TODO fix hook rule
+      source: updateProduct.source || useAddCartSource(Constants.DETAIL_SOURCE)
+    };
+
+
+```
+
+### 只在 React 函数中调用 Hook 不要在普通的 JavaScript 函数中调用 Hook
+
+```ts
+// good
+const useRtgCart = () => {
+  const [loading, setLoading] = useState(false);
+  const [sumAndPrice, setSumAndPrice] = useState<SumAndPrice>({ sum: {}, price: {} });
+  ...
+
+
+// bad
+const rtgCart = () => {
+  const [loading, setLoading] = useState(false);
+  const [sumAndPrice, setSumAndPrice] = useState<SumAndPrice>({ sum: {}, price: {} });
+  ...
+```
+
+### 自定义 Hook 命名以 use 开头

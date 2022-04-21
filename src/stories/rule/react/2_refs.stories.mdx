@@ -1,0 +1,101 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="规约/React/2.Refs" />
+
+# [Refs](https://beta.reactjs.org/learn/referencing-values-with-refs)
+
+[Refs](https://zh-hans.reactjs.org/docs/refs-and-the-dom.html)  
+[Forwarding Refs](https://zh-hans.reactjs.org/docs/forwarding-refs.html)
+
+<font color="red">
+  如果你的组件需要记住一些数据 并且又不想因为这些数据触发 render 那么你可以使用
+  Ref
+</font>
+
+理论上 ref 可以保存任何数据
+但是官方一直在强调不要因为使用 ref 而影响 React 正常的渲染逻辑  
+在 Beta 文档中更是将 ref 的介绍放在了[Escape Hatches(逃生舱)]章节之下  
+所以我们在使用 ref 的时候 需要再三思考当前场景下 是否真的需要使用 ref 来解决问题
+
+<font color="red">尤其是ref与state混用 很容易造成预料之外的Bug</font>
+<br />
+<br />
+
+### 官方建议使用 Ref 的场景
+
+- Storing timeout IDs  
+  储存 timeout 的 id
+- Storing and manipulating DOM elements  
+  储存并直接操作 dom 元素
+- Storing other objects that aren’t necessary to calculate the JSX  
+  储存对 React 计算 JSX 来说非必要的数据
+
+### refs 和 state 的区别
+
+| refs                                                                                | state                                                                                                                             |
+| :---------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------- |
+| useRef(initialValue) <br/> returns { current: initialValue }                        | useState(initialValue) <br/> returns the current value of a state variable and a state setter function <br/> ( [value, setValue]) |
+| Doesn’t trigger re-render when you change it.                                       | Triggers re-render when you change it.                                                                                            |
+| Mutable—you can modify and update current’s value outside of the rendering process. | “Immutable”—you must use the state setting function to modify state variables to queue a re-render.                               |
+| You shouldn’t read (or write) the current value during rendering.                   | You can read state at any time. However, each render has its own snapshot of state which does not change.                         |
+
+### 使用 Refs 操作 DOM
+
+- #### 普通标签
+
+```ts
+import { FC, useRef } from "react";
+
+type DemoProps = {};
+
+export const Demo: FC<DemoProps> = ({}) => {
+  // hooks start
+  // 初始值给null
+  const divRef = useRef<HTMLDivElement>(null);
+  // hooks end
+
+  // logic functions start
+  const doSomthingWithDivDom = () => {
+    divRef.current.scrollIntoView();
+  };
+  // logic functions end
+
+  // render functions start
+  return <div ref={divRef}>666</div>;
+  // render functions end
+};
+```
+
+- #### 函数式组件
+
+```ts
+import { Dispatch, SetStateAction, forwardRef } from "react";
+import { SelectedOptions } from "../../DishOptionPopup";
+import { GetDishOptionResObj } from "@api.Restaurant";
+
+type DishOptionCardProps = {
+  optionIndex: number;
+  onClickSingleChoice?: () => void;
+  optionInfo: GetDishOptionResObj[0];
+  selectedOptions: SelectedOptions;
+  setSelectedOptions: Dispatch<SetStateAction<SelectedOptions>>;
+};
+
+export const DishOptionCard = forwardRef<HTMLDivElement, DishOptionCardProps>(
+  (
+    {
+      optionIndex,
+      onClickSingleChoice,
+      optionInfo,
+      selectedOptions,
+      setSelectedOptions,
+    },
+    // 在上级组件中管理以及使用
+    ref,
+  ) => {
+    // render functions start
+    return <div ref={ref}></div>;
+    // render functions end
+  },
+);
+```

@@ -1,4 +1,4 @@
-import { Meta } from "@storybook/addon-docs/blocks";
+import { Meta } from "@storybook/addon-docs";
 
 <Meta title="规约/导入导出管理" />
 
@@ -6,7 +6,7 @@ import { Meta } from "@storybook/addon-docs/blocks";
 
 <font color="red">TODO 调查 webpack 5 打包影响</font>
 
-- index.ts 导出管理文件示意
+### index.ts 导出管理文件示意
 
 ```txt
 └─components
@@ -23,8 +23,9 @@ export { ActivityProgress } from './Activity/ActivityProgress';
 ...
 ```
 
-- 在当前包中导入其他功能包中的对象时，必须从它最外层的 index.ts(导出管理)中导入  
-  其他包内并不是所有带有 export 的对象都希望在外部被调用（这也是 index.ts 导出管理文件存在的意义）
+### 在当前包中导入其他功能包中的对象时，必须从它最外层的 index.ts(导出管理)中导入
+
+### 其他包内并不是所有带有 export 的对象都希望在外部被调用（这也是 index.ts 导出管理文件存在的意义）
 
 ```ts
 // 当前在menu模块中需要调用login模块的Action
@@ -35,11 +36,11 @@ import { loginActions } from "../../../login";
 import { loginActions } from "../../../login/loginSlice/loginActions";
 ```
 
-- 如无特殊必要，不要默认导出(default 导出被认为是有害的)
+### 如无特殊必要，不要默认导出(default 导出被认为是有害的)
 
-  [详解默认导出(掘金)](https://juejin.cn/post/6864340338060820487)  
-  [深入解析 ES Module（一）：禁用 export default object(知乎)](https://zhuanlan.zhihu.com/p/40733281)  
-  [深入解析 ES Module（二）：彻底禁用 default export(知乎)](https://zhuanlan.zhihu.com/p/97335917)
+[详解默认导出(掘金)](https://juejin.cn/post/6864340338060820487)  
+ [深入解析 ES Module（一）：禁用 export default object(知乎)](https://zhuanlan.zhihu.com/p/40733281)  
+ [深入解析 ES Module（二）：彻底禁用 default export(知乎)](https://zhuanlan.zhihu.com/p/97335917)
 
 ```ts
 // good

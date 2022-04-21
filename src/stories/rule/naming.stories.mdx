@@ -1,10 +1,10 @@
-import { Meta } from "@storybook/addon-docs/blocks";
+import { Meta } from "@storybook/addon-docs";
 
 <Meta title="规约/命名规则" />
 
 # 命名规则
 
-- 变量声明非特殊情况不要使用 var，使用 let 或 const
+### 变量声明非特殊情况不要使用 var，使用 let 或 const
 
 [let 和 const 命令](https://es6.ruanyifeng.com/#docs/let)
 
@@ -18,7 +18,7 @@ const x = 1;
 let y = "";
 ```
 
-- 文件夹名全小写，单词之间用连字符连接
+### 文件夹名全小写，单词之间用连字符连接
 
 ```ts
 // bad
@@ -28,7 +28,7 @@ let y = "";
 フォルダ名: xxxx, xx-yyy, xxx-yy-zz,
 ```
 
-- 临时文件/文件夹，统一使用下划线"\_"作为前缀
+### 临时文件/文件夹，统一使用下划线"\_"作为前缀
 
 ```ts
 // bad
@@ -38,7 +38,7 @@ let y = "";
 临时文件/文件夹: _xxxx, _yyyy.ts, _Zzz.tsx
 ```
 
-- 非组件文件不要使用 jsx/tsx 作为文件后缀名
+### 非组件文件不要使用 jsx/tsx 作为文件后缀名
 
 ```ts
 // bad
@@ -50,7 +50,7 @@ const xxxFunc = () => {};
 const xxxFunc = () => {};
 ```
 
-- 组件(Class/函数)命名使用大驼峰
+### 组件(Class/函数)命名使用大驼峰
 
 ```tsx
 // bad
@@ -66,7 +66,7 @@ class DemoClass {}
 const DemoComponent = () => <div />;
 ```
 
-- TS interface 和 type 命名使用大驼峰
+### TS interface 和 type 命名使用大驼峰
 
 ```ts
 // bad
@@ -78,7 +78,7 @@ interface RequestData {}
 type ResponseData = {};
 ```
 
-- 变量,函数命名使用小驼峰
+### 变量,函数命名使用小驼峰
 
 ```ts
 // bad
@@ -98,7 +98,7 @@ function useHooks() {}
 const onClick = () => {};
 ```
 
-- 常量名全大写，单词间使用下划线"\_"拼接
+### 常量名全大写，单词间使用下划线"\_"拼接
 
 ```ts
 // bad
@@ -116,9 +116,9 @@ const SEVER_CONFIG = {
 };
 ```
 
-- 尽量多地添加有效注释。
+### 尽量多地添加有效注释
 
-\*TS 声明使用文档注释
+### TS 声明使用文档注释
 
 ```tsx
 // bad
