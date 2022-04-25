@@ -4,12 +4,17 @@ import { Meta } from "@storybook/addon-docs";
 
 # 类型定义
 
-- 公共类型或 API 接口需要在@types 文件夹内定义 (xxx.d.ts)
-- xxx.d.ts 内需要定义为模块, 规则: declare module "@文件夹名.模块名"
-- @type/api 文件夹内放置 API 接口的定义文件，在其中指定 RequestParams 与 ResponseData 的类型
-- params.d.ts 文件内可以定义一些共享的类型片段，在项目中共享。
-- 组件、方法相关的类型直接定义在自己对应的 .ts 或.tsx 文件内，并且不要使用 declare module。
-- <font color="red">相关字段请使用文档注释(/** xxx */)</font>
+- ### 公共类型或 API 接口需要在@types 文件夹内定义 (xxx.d.ts)
+
+- ### xxx.d.ts 内需要定义为模块, 规则: declare module "@文件夹名.模块名"
+
+- ### @type/api 文件夹内放置 API 接口的定义文件，在其中指定 RequestParams 与 ResponseData 的类型
+
+- ### params.d.ts 文件内可以定义一些共享的类型片段，在项目中共享。
+
+- ### 组件、方法相关的类型直接定义在自己对应的 .ts 或.tsx 文件内，并且不要使用 declare module。
+
+- ### <font color="red">相关字段请使用文档注释(/\*_ xxx _/)</font>
 
 ```ts
 // src/@type/api/xxxxx-api.d.ts

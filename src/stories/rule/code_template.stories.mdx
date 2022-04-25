@@ -1,0 +1,86 @@
+import { Meta } from "@storybook/addon-docs";
+
+<Meta title="规约/代码模板" />
+
+# 代码模板
+
+### [Vscode 如何创建自定义代码模板](https://blog.csdn.net/u013175208/article/details/107462598?spm=1001.2014.3001.5501)
+
+<br />
+<br />
+
+### VSCode 请使用下列代码模板
+
+### <font color='red'>注意 React18 TS 破坏性改动</font>
+
+#### [使用 TypeScript 并升级到 React 18](https://github.com/flytam/blog/issues/29)
+
+#### [React 18 Removal Of Implicit Children](https://solverfox.dev/writing/no-implicit-children/)
+
+#### 函数式组件
+
+```json
+{
+  "Function Component": {
+    "prefix": "fc",
+    "body": [
+      "import { FC, useState, useEffect } from \"react\";\n",
+      "type $1Props = {};\n",
+      "export const $1: FC<$1Props> = ({}) => {",
+      "  // hooks start",
+      "  const [_temp, setTemp] = useState();",
+      "  // hooks end\n",
+      "  // useEffect functions start",
+      "  useEffect(() => {",
+      "    console.log(_temp);",
+      "  }, []);",
+      "  // useEffect functions end\n",
+      "  // logic functions start",
+      "  // logic functions end\n",
+      "  // render functions start",
+      "  return (",
+      "    <>",
+      "      <div>FC</div>",
+      "    </>",
+      "  );",
+      "  // render functions end",
+      "};"
+    ],
+    "description": "Function Component"
+  }
+}
+```
+
+#### 函数式组件 使用 children
+
+```json
+{
+  "Function Component with children": {
+    "prefix": "fcc",
+    "body": [
+      "import { FC, PropsWithChildren, useState, useEffect } from \"react\";\n",
+      "type $1Props = {};\n",
+      "export const $1: FC<PropsWithChildren<$1Props>> = ({ children }) => {",
+      "  // hooks start",
+      "  const [_temp, setTemp] = useState();",
+      "  // hooks end\n",
+      "  // useEffect functions start",
+      "  useEffect(() => {",
+      "    console.log(_temp);",
+      "  }, []);",
+      "  // useEffect functions end\n",
+      "  // logic functions start",
+      "  // logic functions end\n",
+      "  // render functions start",
+      "  return (",
+      "    <>",
+      "      <div>FC with children</div>",
+      "    </>",
+      "  );",
+      "  // render functions end",
+      "};"
+    ],
+    "description": "RTG FC"
+  }
+}
+```
