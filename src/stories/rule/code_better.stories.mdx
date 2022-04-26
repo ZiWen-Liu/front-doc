@@ -4,11 +4,85 @@ import { Meta } from "@storybook/addon-docs";
 
 # if else 优化
 
-[干掉 if else](https://mp.weixin.qq.com/s?__biz=Mzg2MjU0NzcxOA==&mid=2247492519&idx=2&sn=ab862cb5f45557442c7ff954d0534f37&chksm=ce0499cef97310d83b873b16a2b764f889671313dba6e1b36e57cedd0df7695544d30f01163f&xtrack=1&scene=90&subscene=93&sessionid=1626836233&clicktime=1626836237&enterid=1626836237&ascene=56&devicetype=android-30&version=2800073d&nettype=ctnet&abtest_cookie=AAACAA%3D%3D&lang=zh_CN&exportkey=AZWS9tynlnNHM1pjhLY%2FtRY%3D&pass_ticket=Qk%2BR3rlD%2FzdQkFjjANjk6RlrY7e3iyyHMTe4gKfpyq3aDopSblhxSGXYQG3VM3Y5&wx_header=1)  
-[Better Software Without If-Else(原文)](https://medium.com/swlh/5-ways-to-replace-if-else-statements-857c0ff19357)
+#### [干掉 if else](https://mp.weixin.qq.com/s?__biz=Mzg2MjU0NzcxOA==&mid=2247492519&idx=2&sn=ab862cb5f45557442c7ff954d0534f37&chksm=ce0499cef97310d83b873b16a2b764f889671313dba6e1b36e57cedd0df7695544d30f01163f&xtrack=1&scene=90&subscene=93&sessionid=1626836233&clicktime=1626836237&enterid=1626836237&ascene=56&devicetype=android-30&version=2800073d&nettype=ctnet&abtest_cookie=AAACAA%3D%3D&lang=zh_CN&exportkey=AZWS9tynlnNHM1pjhLY%2FtRY%3D&pass_ticket=Qk%2BR3rlD%2FzdQkFjjANjk6RlrY7e3iyyHMTe4gKfpyq3aDopSblhxSGXYQG3VM3Y5&wx_header=1)
+
+#### [Better Software Without If-Else(原文)](https://medium.com/swlh/5-ways-to-replace-if-else-statements-857c0ff19357)
 
 ```ts
+// bad
+const bad = (num: number) => {
+  let gender: "male" | "famale" | "unknown" = "unknown";
 
+  if (num === 0) {
+    gender = "male";
+  } else if (num === 1) {
+    gender = "famale";
+  } else {
+    gender = "unknown";
+  }
+
+  return gender;
+};
+
+// good
+const good = (num: number) => {
+  let gender: "male" | "famale" | "unknown" = "unknown";
+
+  if (num === 0) {
+    gender = "male";
+  }
+
+  if (num === 1) {
+    gender = "famale";
+  }
+
+  return gender;
+};
 ```
 
+<br />
+<br />
+<br />
+
 # enum && as const
+
+### 如果没有特殊需要(eg:反向映射数字枚举) 使用[as const]const 断言进行字段约束
+
+#### [TS 转译示例](https://www.typescriptlang.org/play?#code/KYOwrgtgBAwg9gGzgJwM4FFzQN4CgpTLAAmUAvFAEQDEAIgGIBMMj6lANPlAEYJjDkq1AAzCAHOloA2DlxQBDEAHMBFGumEBWAIyMAzLIIBPYAiQB3QTXoAhGNuE3DUJUVBWR6AOzopw2QC+uLgAxnAgqAAusIgoqADy3ABWgngERMQAXEIMzKzOvPzZNKIS0s4KysDF1Bo6+s4mZnDmNbb2js6uwKA1wt6+-pwBUPKoUGERkQDcQA)
+
+#### [Objects vs Enums](https://www.typescriptlang.org/docs/handbook/enums.html#objects-vs-enums)
+
+#### [TypeScript 的 enum 是一种错误吗](https://www.zhihu.com/question/60168510/answer/733352978?utm_source=wechat_session&utm_medium=social&utm_oi=579927682901479424&utm_content=group1_Answer&utm_campaign=shareopn)
+
+#### [The trouble with TypeScript enums](https://thoughtbot.com/blog/the-trouble-with-typescript-enums)
+
+```ts
+// bad
+enum SIMPLE_ENUM_STRING {
+  A = "AAA",
+  B = "BBB",
+  C = "CCC",
+}
+
+// good
+const SIMPLE_CONST_STRING = {
+  A: "AAA",
+  B: "BBB",
+  C: "CCC",
+} as const;
+
+// ATTENTION
+// there may be an error
+enum SimpleEnumNum {
+  A = 2,
+  B = 3,
+  C = 4,
+}
+
+// 2
+console.log(SimpleEnumNum.A);
+// C
+console.log(SimpleEnumNum[4]);
+// undefined
+console.log(SimpleEnumNum[0]);
+```
