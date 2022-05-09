@@ -1,5 +1,7 @@
 import { Meta } from "@storybook/addon-docs";
 
+import storage_key_img from "assets/img/storage_key.jpg";
+
 <Meta title="规约/命名规则" />
 
 # 命名规则
@@ -25,7 +27,7 @@ let y = "";
 文件夹名: Xxxx, xx-Yyy, Xxx-yy,
 
 // good
-フォルダ名: xxxx, xx-yyy, xxx-yy-zz,
+文件夹名: xxxx, xx-yyy, xxx-yy-zz,
 ```
 
 ### 临时文件/文件夹，统一使用下划线"\_"作为前缀
@@ -116,7 +118,60 @@ const SEVER_CONFIG = {
 };
 ```
 
+### Storge Key(Local Session Cookie...)
+
+### [模块名/页面名+变量名]全小写 单词间使用下划线"\_"拼接
+
+```ts
+// bad
+RTG_LIST_CACHE_STORE_KEY: 'restaruant-list-store',
+
+// good
+RTG_LIST_CACHE_STORE_KEY: 'rtg_list_scroll',
+```
+
+<img src={storage_key_img} />
+
 ### 尽量多地添加有效注释
+
+```tsx
+// bad
+/**
+ * 时间戳转字符串
+ */
+export const formatTimeDisplay = (startTime?: number, endTime?: number) => {
+  if (!startTime || !endTime) {
+    return PLACE_HOLDER;
+  }
+
+  const displayText = `${dayjs
+    .tz(dayjs.unix(startTime), TIMEZONE)
+    .format("MM/DD/YYYY HH:mm")} PST - ${dayjs
+    .tz(dayjs.unix(endTime), TIMEZONE)
+    .format("MM/DD/YYYY HH:mm")} PST`;
+  return displayText;
+};
+
+// good
+/**
+ * 时间戳转[开始时间 PST - 结束时间 PST] PST(MM/DD/YYYY HH:mm)字符串
+ * @param startTime
+ * @param endTime
+ * @returns 'startTime PST - endTime PST' (MM/DD/YYYY HH:mm)
+ */
+export const formatTimeDisplay = (startTime?: number, endTime?: number) => {
+  if (!startTime || !endTime) {
+    return PLACE_HOLDER;
+  }
+
+  const displayText = `${dayjs
+    .tz(dayjs.unix(startTime), TIMEZONE)
+    .format("MM/DD/YYYY HH:mm")} PST - ${dayjs
+    .tz(dayjs.unix(endTime), TIMEZONE)
+    .format("MM/DD/YYYY HH:mm")} PST`;
+  return displayText;
+};
+```
 
 ### TS 声明使用文档注释
 

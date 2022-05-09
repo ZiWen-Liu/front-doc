@@ -17,7 +17,7 @@ import { Meta } from "@storybook/addon-docs";
 
 #### [React 18 Removal Of Implicit Children](https://solverfox.dev/writing/no-implicit-children/)
 
-#### 函数式组件
+## 函数式组件
 
 ```json
 {
@@ -51,7 +51,47 @@ import { Meta } from "@storybook/addon-docs";
 }
 ```
 
-#### 函数式组件 使用 children
+#### eg:
+
+```ts
+import { FC, useState, useEffect, memo } from "react";
+
+type FuncComponentProps = {
+  /** props A */
+  propsA: number;
+  /** props B */
+  propsB?: string;
+};
+
+export const FuncComponent: FC<FuncComponentProps> = memo(
+  ({ propsA, propsB = "defaultValue" }) => {
+    // hooks start
+    const [_temp, setTemp] = useState(false);
+    // hooks end
+
+    // useEffect functions start
+    useEffect(() => {
+      console.log(_temp);
+      console.log(propsA);
+      console.log(propsB);
+    }, [_temp, propsA, propsB]);
+    // useEffect functions end
+
+    // logic functions start
+    // logic functions end
+
+    // render functions start
+    return (
+      <>
+        <div>FC</div>
+      </>
+    );
+    // render functions end
+  },
+);
+```
+
+## 函数式组件 使用 children
 
 ```json
 {
@@ -83,4 +123,45 @@ import { Meta } from "@storybook/addon-docs";
     "description": "RTG FC"
   }
 }
+```
+
+#### eg:
+
+```ts
+import { FC, PropsWithChildren, useState, useEffect } from "react";
+
+type FuncComponentWithChildrenProps = {
+  /** props A */
+  propsA: number;
+  /** props B */
+  propsB?: string;
+};
+
+export const FuncComponentWithChildren: FC<
+  PropsWithChildren<FuncComponentWithChildrenProps>
+> = ({ propsA, propsB = "defaultValue", children }) => {
+  // hooks start
+  const [_temp, setTemp] = useState(false);
+  // hooks end
+
+  // useEffect functions start
+  useEffect(() => {
+    console.log(_temp);
+    console.log(propsA);
+    console.log(propsB);
+  }, [_temp, propsA, propsB]);
+  // useEffect functions end
+
+  // logic functions start
+  // logic functions end
+
+  // render functions start
+  return (
+    <>
+      <div>FC with children</div>
+      {children}
+    </>
+  );
+  // render functions end
+};
 ```

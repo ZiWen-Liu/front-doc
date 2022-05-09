@@ -1,5 +1,112 @@
 import { Meta } from "@storybook/addon-docs";
 
+import nextJS_pro_tree_img from "assets/img/nextJS_project_tree.jpg";
+import nodeJS_LTS_img from "assets/img/nodeJS_LTS_img.jpg";
+
 <Meta title="规约/开发环境" />
 
-# TODO
+# 依赖版本控制
+
+<font color="red">
+  不同版本的NodeJS(尤其是高版本)
+  会在安装项目依赖时对依赖版本产生影响(无论是否锁依赖版本) <br />
+  使用NodeJS LTS(长期维护)版本
+</font>
+<br />
+<br />
+<img src={nodeJS_LTS_img} />
+
+<br />
+<br />
+项目正式上线前
+<br />
+除非有特殊需要(脚手架相关依赖 配置项相关依赖) 否则不要锁定相关依赖的版本
+<br />
+在开发阶段进行依赖项的版本同步升级
+
+<br />
+<br />
+<font color="red">
+  项目正式上线后
+  <br />
+  锁定所有依赖版本(包括上线后再次进行开发时的NodeJS版本)
+  以维护开发环境的依赖统一
+  <br />
+  依托于测试 定期进行依赖的版本升级(建议两个月一次)
+  以保持相关依赖的Bug修复以及功能更新
+</font>
+
+# 项目层级
+
+- ## NextJS
+
+```txt
+├─public // Next静态资源
+├─src
+|  ├─@types // TS
+|  |   ├─social-pc.d.ts // 公共TS
+|  |   ├─request // 请求后台函数TS
+|  |   |    └social-pc-request.d.ts
+|  ├─assets //公共资源文件
+|  |   ├─styles // css
+|  |   |   └globals.css
+|  |   ├─image // 图片
+|  ├─components // 组件
+|  |     ├─FuncComponentWithChildren
+|  |     |             └index.tsx
+|  |     ├─FuncComponent
+|  |     |       └FuncComponent.tsx
+|  |     ├─index.ts // 导入导出管理
+|  ├─config // 公共配置
+|  ├─constants // 常量文件
+|  |     ├─common.ts
+|  |     └middleware.ts
+|  ├─hooks // React Hooks
+|  ├─middleware // 中间件
+|  |     ├─i18n.ts
+|  |     └ignore.ts
+|  ├─pages // 页面
+|  |   ├─index.module.css
+|  |   ├─index.tsx
+|  |   ├─_app.tsx
+|  |   ├─_middleware.ts
+|  |   ├─api
+|  |   |  └hello.ts
+|  ├─request // 请求后台函数
+|  ├─utils // 工具函数
+|  |   ├─middleware.ts
+|  |   └tool.ts
+├─.eslintrc.json
+├─.gitignore
+├─.prettierrc
+├─next-env.d.ts
+├─next.config.js
+├─package.json
+├─postcss.config.js
+├─README.md
+├─tailwind.config.js
+├─tsconfig.json
+├─yarn.lock
+```
+
+<img src={nextJS_pro_tree_img} />
+
+# VSCode 插件安装
+
+#### [Code Runner](https://marketplace.visualstudio.com/items?itemName=formulahendry.code-runner)
+
+#### [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+
+#### [filesize](https://marketplace.visualstudio.com/items?itemName=mkxml.vscode-filesize)
+
+#### [Git Graph](https://marketplace.visualstudio.com/items?itemName=mhutchie.git-graph)
+
+#### [GitLens — Git supercharged](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens)
+
+#### [Import Cost](https://marketplace.visualstudio.com/items?itemName=wix.vscode-import-cost)
+
+#### [indent-rainbow](https://marketplace.visualstudio.com/items?itemName=oderwat.indent-rainbow)
+
+#### [Prettier - Code formatter](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
+
+#### [React Hooks Snippets](https://marketplace.visualstudio.com/items?itemName=AlDuncanson.react-hooks-snippets)
