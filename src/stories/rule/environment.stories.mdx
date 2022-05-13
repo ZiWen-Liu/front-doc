@@ -43,6 +43,7 @@ import nodeJS_LTS_img from "assets/img/nodeJS_LTS_img.jpg";
 ```txt
 ├─public // Next静态资源
 ├─src
+|  ├─@__test__ // 测试文件
 |  ├─@types // TS
 |  |   ├─social-pc.d.ts // 公共TS
 |  |   ├─request // 请求后台函数TS
@@ -58,10 +59,12 @@ import nodeJS_LTS_img from "assets/img/nodeJS_LTS_img.jpg";
 |  |     |       └FuncComponent.tsx
 |  |     ├─index.ts // 导入导出管理
 |  ├─config // 公共配置
+|  ├─helper // 高耦合业务工具函数文件
 |  ├─constants // 常量文件
 |  |     ├─common.ts
 |  |     └middleware.ts
 |  ├─hooks // React Hooks
+|  ├─locales // 国际化文件
 |  ├─middleware // 中间件
 |  |     ├─i18n.ts
 |  |     └ignore.ts
@@ -73,7 +76,7 @@ import nodeJS_LTS_img from "assets/img/nodeJS_LTS_img.jpg";
 |  |   ├─api
 |  |   |  └hello.ts
 |  ├─request // 请求后台函数
-|  ├─utils // 工具函数
+|  ├─utils // 纯函数工具函数文件
 |  |   ├─middleware.ts
 |  |   └tool.ts
 ├─.eslintrc.json
